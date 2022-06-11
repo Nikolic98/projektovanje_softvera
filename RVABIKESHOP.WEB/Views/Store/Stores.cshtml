@@ -1,0 +1,22 @@
+﻿@using ESCOOTERRENT.Data
+@using ESCOOTERRENT.Models
+
+@model List<StoreModel>
+
+<link rel="stylesheet" href="~/css/Card.css">
+
+<div style=" height: 100%">
+    <div class="row">
+         @foreach (StoreModel store in @Model)
+          {
+            <div class="column">
+                <div class="card">
+                  <img src="~/img/store.jpg" >
+                  <h3>@store.Name</h3>                 
+                  <p>@store.Location</p>  
+                  <p>Working hours: @store.WorkingHours</p> 
+                </div>
+            </div>
+          }    
+    </div>
+</div>

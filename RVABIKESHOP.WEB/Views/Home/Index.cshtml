@@ -1,0 +1,69 @@
+﻿@using ESCOOTERRENT.Data
+@using ESCOOTERRENT.Models
+
+@{
+    ViewData["Title"] = "Scooters";
+}
+@model List<ScooterModel>
+
+@{
+    var stores = (List<StoreModel>)ViewData["StoresList"];
+    var types = (List<TypeModel>)ViewData["TypesList"];
+}
+<style>
+    .cardText {
+    text-align:start;
+    }
+</style>
+
+<link rel="stylesheet" href="~/css/Dropdown.css">
+<link rel="stylesheet" href="~/css/Button.css">
+<link rel="stylesheet" href="~/css/Card.css">
+
+<div style="height: 100%"> 
+    <div class="row">
+         @foreach (ScooterModel scooter in @Model)
+          {
+            <div class="column">
+                <div class="card">
+
+                  <h3>@scooter.Name</h3>
+                    @{
+                        var type = types.Find(x => x.Id == @scooter.TypeId);
+                        switch(type.Id)
+                        {
+                            case 1:
+                                 <img src="~/img/scooter_1.jpg">
+                            break;
+                            case 2:
+                                 <img src="~/img/scooter_2.jpg">
+                            break;
+                            case 3:
+                                 <img src="~/img/scooter_3.jpg">
+                            break;
+                            case 4:
+                                 <img src="~/img/scooter_4.jpg">
+                            break;
+                            default:
+                                 <img src="~/img/scooter_3.jpg">
+                            break;
+                        }                                 
+                    }                                                    
+                   
+                  <p class="cardText">Bycicle type: @type.Name</p>
+                  <p class="cardText">Price: @scooter.Price dinars</p>
+                  <p class="cardText">Description: @scooter.Description</p>
+                  @if (scooter.Available) 
+                  {                 
+                    <p style="color:green;">Status: In stock</p>                  
+                  }
+                  else
+                  {
+                    <p style="color:red;">Status: Not in stock</p>
+                  }
+                  <a style="color:blue; text-align:center;" asp-action="Rent" asp-controller="Home" asp-route-id="@scooter.Id">Rent</a>
+                </div>
+            </div>
+          }    
+    </div>
+</div>
